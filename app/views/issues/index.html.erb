@@ -4,13 +4,21 @@
 
 <h1>Issues</h1>
 
-<div id="issues">
-  <% @issues.each do |issue| %>
-    <%= render issue %>
-    <p>
-      <%= link_to "Show this issue", issue %>
-    </p>
-  <% end %>
-</div>
+<%= form_with url: issues_path, method: :get, local: true do %>
+  <%= select_tag :status, options_for_select(Issue.statuses.keys, params[:status]), include_blank: "Status" %>
+  <%= select_tag :priority, options_for_select(Issue.priorities.keys, params[:priority]), include_blank: "Priority" %>
+  <%= text_field_tag :assigned_to, params[:assigned_to], placeholder: "Assigned to" %>
+  <%= submit_tag "Filter" %>
+<% end %>
 
-<%= link_to "New issue", new_issue_path %>
+<hr>
+
+<% @issues.each do |issue| %>
+  <div>
+    <strong><%= issue.title %></strong>
+    | Status: <%= issue.status %>
+    | Priority: <%= issue.priority %>
+    | Assigned: <%= issue.assigned_to %>
+    | Due: <%= issue.due_date %>
+  </div>
+<% end %>
