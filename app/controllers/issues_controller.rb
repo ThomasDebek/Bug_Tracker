@@ -9,6 +9,19 @@ class IssuesController < ApplicationController
                    .assigned_to_user(params[:assigned_to])
   end
 
+
+  def start_work
+    @issue = Issue.find(params[:id])
+    @issue.update(status: :in_progress)
+    redirect_back(fallback_location: project_path(@issue.project), notice: "Status changed to In Progress")
+  end
+
+  def close
+    @issue = Issue.find(params[:id])
+    @issue.update(status: :closed)
+    redirect_back(fallback_location: project_path(@issue.project), notice: "Status changed to Closed")
+  end
+
   # GET /issues/1 or /issues/1.json
   def show
   end
