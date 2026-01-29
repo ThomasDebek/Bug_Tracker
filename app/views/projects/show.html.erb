@@ -16,7 +16,7 @@
 <h3>Issues in this project</h3>
 
 <% @project.issues.each do |issue| %>
-  <div style="margin-bottom: 10px; border-bottom: 1px solid #ccc;">
+  <div style="margin-bottom: 10px; border-bottom: 1px solid #ccc; padding-bottom: 5px;">
     <strong><%= link_to issue.title, issue %></strong>
     | Status: <%= issue.status %>
     | Priority: <%= issue.priority %>
