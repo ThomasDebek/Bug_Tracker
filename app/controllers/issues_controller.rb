@@ -4,6 +4,9 @@ class IssuesController < ApplicationController
   # GET /issues or /issues.json
   def index
     @issues = Issue.all
+                   .by_status(params[:status])
+                   .by_priority(params[:priority])
+                   .assigned_to_user(params[:assigned_to])
   end
 
   # GET /issues/1 or /issues/1.json
