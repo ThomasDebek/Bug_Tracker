@@ -4,6 +4,12 @@ Rails.application.routes.draw do
   resources :projects do
     resources :issues, shallow: true do
       resources :comments, only: [:create]
+
+      member do
+        patch :start_work
+        patch :close
+      end
+
     end
   end
 
