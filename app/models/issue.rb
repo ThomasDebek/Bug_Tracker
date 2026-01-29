@@ -9,4 +9,10 @@ class Issue < ApplicationRecord
 
   validates :title, :status, :priority,  presence: true
 
+
+  scope :by_status, ->(status) { where(status: status) if status.present? }
+  scope :by_priority, ->(priority) { where(priority: priority) if priority.present? }
+  scope :assigned_to_user, ->(user) { where(assigned_to: user) if user.present? }
+  scope :overdue, -> { where("due_date < ?", Date.today).where.not(status: :closed) }
+
 end
